@@ -31,6 +31,18 @@ import elemental.json.JsonArray;
 @Theme("mytheme")
 public class MyUI extends UI {
 
+    class TabComponent extends Label {
+
+        TabComponent(String value) {
+            super(value);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 
@@ -46,7 +58,7 @@ public class MyUI extends UI {
 
         VerticalLayout tabHolder = new VerticalLayout();
 
-        TabSheetMod ts = new TabSheetMod(tabHolder);
+        PersistentTabSheet ts = new PersistentTabSheet(tabHolder);
 
         ts.setTabCaptionsAsHtml(true);
 
@@ -66,7 +78,7 @@ public class MyUI extends UI {
         Button addTab = new Button("add tab");
         addTab.addClickListener(clickEvent -> {
 //            ts.addTab(new Label("tab" + ts.getComponentCount()), "looooooooooooooooooong taaaaaaaaaaaaaaaaaab"  + ts.getComponentCount()).setClosable(true);
-            ts.addNewTab(new Label("tab" + ts.getComponentCount()), "looooooooooooooooooong taaaaaaaaaaaaaaaaaab"  + ts.getComponentCount());
+            ts.addNewTab(new TabComponent("tab" + ts.getComponentCount()), "looooooooooooooooooong taaaaaaaaaaaaaaaaaab"  + ts.getComponentCount());
         });
 
         layout.addComponent(addTab);

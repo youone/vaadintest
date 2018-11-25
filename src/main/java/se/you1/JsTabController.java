@@ -5,7 +5,6 @@ import com.vaadin.annotations.StyleSheet;
 import com.vaadin.ui.AbstractJavaScriptComponent;
 import com.vaadin.ui.JavaScriptFunction;
 import elemental.json.JsonArray;
-import se.you1.TabSheetMod;
 
 import java.util.UUID;
 
@@ -16,19 +15,19 @@ import java.util.UUID;
 })
 public class JsTabController extends AbstractJavaScriptComponent {
 
-//    public JsTabController(UUID tabId, String caption, TabSheetMod tabSheet) {
+//    public JsTabController(UUID tabId, String caption, PersistentTabSheet tabSheet) {
 //    }
 
-    public JsTabController(UUID tabId, String caption, TabSheetMod tabSheet) {
+    public JsTabController(UUID tabId, String caption, PersistentTabSheet tabSheet) {
 
         getState().tabId = tabId.toString();
         getState().title = caption;
 
-        addFunction("addPendingTab", new JavaScriptFunction() {
+        addFunction("addTab", new JavaScriptFunction() {
             @Override
             public void call(JsonArray jsonArray) {
                 System.out.println(jsonArray.toJson());
-                tabSheet.addPendingTab(
+                tabSheet.addTabController(
                         UUID.fromString(jsonArray.getObject(0).getString("id")),
                         jsonArray.getObject(0).getString("caption"));
             }

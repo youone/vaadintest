@@ -1,17 +1,12 @@
 se_you1_JsTabController = function() {
 
-    let self = this;
+    // let self = this;
 
-    // if (!window.tabControllers) window.tabControllers = {};
-    window.tabController = this;
+    window.currentTabController = this;
 
-
-    // this.element = $(this.getElement());
-    // this.idElement = $('<div>');
     this.idElement = $('<div>');
     this.element = $('<div>');
     this.mainElement = $(this.getElement()).append(this.idElement).append(this.element);
-    // this.element = $('<div>').appendTo(this.mainElement);
 
     this.onStateChange = function() {
 
@@ -21,45 +16,29 @@ se_you1_JsTabController = function() {
 
         this.idElement.html(this.tabCaption);
 
-        // window.tabControllers[this.tabId] = this;
-
         let old_element = $('span#tab_' + this.tabId).parent().parent()[0];
-        let new_element = old_element.cloneNode(true);
+        // let new_element = old_element.cloneNode(true);
         // old_element.parentNode.replaceChild(new_element, old_element);
 
         $(old_element).on('click', event => {
-            console.log('USING CONTROLLER', window.tabController.tabId);
+            console.log('USING CONTROLLER', window.currentTabController.tabId);
 
             let tabClose = $(event.currentTarget).find('.v-tabsheet-caption-close').first();
             let tabCaption = $(event.currentTarget).find('span').first();
             let tabId = tabCaption.attr('id').split('tab_')[1];
 
             if ($(event.target).attr('class') === 'v-tabsheet-caption-close') {
-                // this.contentStorage.append(window.tabController.tabContent);
-                window.tabController.closeTab({id: tabId});
-                console.log('REMOVING', this.contentStorage.find('.tab_' + tabId));
+                console.log('CLOSING TAB');
+                // window.currentTabController.closeTab({id: tabId});
                 this.contentStorage.find('.tab_' + tabId).remove();
-                console.log('CLOSING');
             }
             else {
-                this.contentStorage.append(window.tabController.tabContent);
-                window.tabController.changeTab({id: tabId});
-                console.log('CHANGING');
+                console.log('CHANGING TAB');
+                this.contentStorage.append(window.currentTabController.tabContent);
+                // window.currentTabController.changeTab({id: tabId});
             }
 
         });
-
-        // $('.v-caption-closable').each(function() {
-        //     let old_element = this;
-        //     let new_element = old_element.cloneNode(true);
-        //     old_element.parentNode.replaceChild(new_element, old_element);
-        //
-        //     $(new_element).on('click', event => {
-        //         self.contentStorage.append(self.tabContent);
-        //         console.log('changing tab', self.contentStorage, self.tabContent);
-        //         self.changeTab({id: $(event.target).attr('id').split('tab_')[1]});
-        //     });
-        // });
 
         this.tabContent = $('.tab_' + this.getState().tabId).parent();
         this.tabContent.addClass('tab-content');
@@ -78,7 +57,7 @@ se_you1_JsTabController = function() {
     this.addNewTab = function(tabId, caption) {
         console.log('STORING TAB CONTENT', this.tabContent);
         this.contentStorage.append(this.tabContent);
-        this.addPendingTab({id: tabId, caption: caption});
+        this.addTab({id: tabId, caption: caption});
     }
 
     // this.changeTab = function(tabId, caption) {
