@@ -34,6 +34,22 @@ public class JsTabController extends AbstractJavaScriptComponent {
             }
         });
 
+        addFunction("changeTab", new JavaScriptFunction() {
+            @Override
+            public void call(JsonArray jsonArray) {
+                System.out.println(jsonArray.toJson());
+                tabSheet.setTab(UUID.fromString(jsonArray.getObject(0).getString("id")));
+            }
+        });
+
+        addFunction("closeTab", new JavaScriptFunction() {
+            @Override
+            public void call(JsonArray jsonArray) {
+                System.out.println(jsonArray.toJson());
+                tabSheet.closeTab(UUID.fromString(jsonArray.getObject(0).getString("id")));
+            }
+        });
+
     }
 
     public void addNewTab(UUID tabId, String caption) {

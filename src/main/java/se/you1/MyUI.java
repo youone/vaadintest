@@ -21,9 +21,10 @@ import elemental.json.JsonArray;
         "vaadin://static/3rdparty/jqueryui/1.12.1/external/jquery/jquery.js",
         "vaadin://static/3rdparty/jqueryui/1.12.1/jquery-ui.js",
         "https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js",
-        "vaadin://javascript/tabs.js"
+//        "vaadin://javascript/tabs.js"
 })
 @StyleSheet({
+        "vaadin://javascript/tabs.css",
         "vaadin://static/3rdparty/jqueryui/1.12.1/jquery-ui.css",
         "https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.css",
 })
